@@ -1,15 +1,17 @@
 {
   "name": "elroy-ardrone-driver",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "ardrone_scout.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "ar-drone": "^0.3.1",
-    "extend": "^1.2.1"
+    "extend": "^1.2.1",
+    "async": "^0.7.0",
+    "portscanner": "^0.2.2"
   }
 }
