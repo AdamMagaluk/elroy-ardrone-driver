@@ -4,9 +4,6 @@ var portscanner = require('portscanner');
 var async = require('async');
 var ArdroneDriver = require('./ardrone_driver.js');
 
-
-
-
 var ArdroneScout = module.exports = function() {
   this.drivers = [];
 
