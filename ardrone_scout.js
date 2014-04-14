@@ -23,7 +23,7 @@ ArdroneScout.prototype.init = function(next) {
   next();
   
   this.search();
-  setInterval(this.search.bind(this),15000);
+  setInterval(this.search.bind(this),5000);
 };
 
 ArdroneScout.prototype.search = function(){

@@ -3,11 +3,11 @@ var arDrone = require('ar-drone'),
 
 module.exports = ArdroneDriver = function(ip){
   this.type = 'ardrone';
-  this.name = 'Ardrone ' + ip;
+  this.name = 'Ardrone' + ip;
   this.data = {
     ip : ip,
-    movementSpeed : 0.5,
-    movementTime : 1000
+    movementSpeed : 0.7,
+    movementTime : 300
   };
   this.state = 'landed';
   this._client = null;
@@ -29,7 +29,7 @@ function throttle(time,func){
 ArdroneDriver.prototype.init = function(config){
   config
     .when('landed', { allow: ['take-off','blink'] })
-    .when('flying', { allow: ['stop','land','front','back','up','down','left','right','flip','blink','clockwise','counter-clockwise'] })
+    .when('flying', { allow: ['stop','land','front','back','up','down','left','right','flip','blink','clockwise','counter-clockwise','timed-down'] })
     .map('stop',this.stop)
     .map('take-off', this.takeOff)
     .map('land', this.land)
@@ -43,6 +43,7 @@ ArdroneDriver.prototype.init = function(config){
     .map('flip',this.flip)
     .map('clockwise',this.clockwise)
     .map('counter-clockwise',this.counterClockwise)
+    .map('timed-down',this.timedDown)
     .stream('battery-level',this.onBatteryLevelStream)
     .stream('gyroscope-x',this.onGyroscopeXStream)
     .stream('gyroscope-y',this.onGyroscopeYStream)
@@ -115,7 +116,7 @@ ArdroneDriver.prototype.onNavData = function(data){
 };
 
 ArdroneDriver.prototype.blink = function(cb){
-  this._client.animateLeds('doubleMissile', 5, 2);
+  this._client.animateLeds('doubleMissile', 5, 1);
   cb();
 };
 
@@ -126,6 +127,7 @@ ArdroneDriver.prototype.flip = function(cb){
 
 
 ArdroneDriver.prototype.takeOff = function(cb){
+  this.state = 'flying';
   this._client.takeoff(function(){
     cb();
   });
@@ -146,14 +148,14 @@ ArdroneDriver.prototype.stop = function(cb){
 };
 
 
-ArdroneDriver.prototype._timedCall = function(func,cb){
+ArdroneDriver.prototype._timedCall = function(func,cb,time){
 //  this.state = func;
   cb();
   var self = this;
   this._client[func](this.data.movementSpeed);
   setTimeout(function(){
     self._client.stop();
-  },this.data.movementTime);
+  },(time || this.data.movementTime) );
 };
 
 ArdroneDriver.prototype.up = function(cb){
@@ -162,6 +164,10 @@ ArdroneDriver.prototype.up = function(cb){
 
 ArdroneDriver.prototype.down = function(cb){
   this._timedCall('down',cb);
+};
+
+ArdroneDriver.prototype.timedDown = function(duration,cb){
+  this._timedCall('down',cb,duration);
 };
 
 ArdroneDriver.prototype.right = function(cb){
