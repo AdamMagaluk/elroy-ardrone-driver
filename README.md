@@ -1,4 +1,4 @@
-# Phillip's Hue Zetta Driver
+# ArDrone Zetta Driver
 
 [Zetta](http://zettajs.io) device package for ArDrone Quadrocopter, use this to discover ArDrones on your [Zetta](http://zettajs.io) platform.
 
