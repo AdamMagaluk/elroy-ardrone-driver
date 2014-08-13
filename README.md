@@ -1,4 +1,4 @@
-# ArDrone Zetta Driver
+# Zetta ArDrone Driver
 
 [Zetta](http://zettajs.io) device package for ArDrone Quadrocopter, use this to discover ArDrones on your [Zetta](http://zettajs.io) platform.
 
