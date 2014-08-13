@@ -1,6 +1,6 @@
 # Zetta ArDrone Driver
 
-[Zetta](http://zettajs.io) device package for ArDrone Quadrocopter, use this to discover ArDrones on your [Zetta](http://zettajs.io) platform.
+[Zetta](http://zettajs.io) device package for [ArDrone Quadrocopter](http://ardrone2.parrot.com/), use this to discover ArDrones on your Zetta project.
 
 Uses the [Node ArDrone](https://github.com/felixge/node-ar-drone) from Felix Geisendörfer to communicate to the drone through node.
 
