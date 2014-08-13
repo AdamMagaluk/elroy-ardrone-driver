@@ -1,40 +1,38 @@
-var EventEmitter = require('events').EventEmitter;
 var util = require('util');
-var portscanner = require('portscanner');
-var async = require('async');
-var ArdroneDriver = require('./ardrone_driver.js');
+var Scout = require('zetta').Scout;
+var scanNodes = require('scan-neighbors').scanNodes;
+var ArDroneDriver = require('./ardrone.js');
 
-var ArdroneScout = module.exports = function() {
-  this.drivers = [];
+var SEARCH_PORT = 5555;
 
-  var subnet = '192.168.1.';
-  this._ips = [];
-  for(var i=2;i<255;i++)
-    this._ips.push(subnet+i);
-
-  EventEmitter.call(this);
+var ArDroneScout = module.exports = function() {
+  Scout.call(this);
 };
-util.inherits(ArdroneScout, EventEmitter);
+util.inherits(ArDroneScout, Scout);
 
-ArdroneScout.prototype.init = function(next) {
+ArDroneScout.prototype.init = function(next) {
   next();
-  
   this.search();
-  setInterval(this.search.bind(this),5000);
+  setInterval(this.search.bind(this), 5000);
 };
 
-ArdroneScout.prototype.search = function(){
+ArDroneScout.prototype.search = function() {
   var self = this;
-  function scan(ip,cb){
-    portscanner.checkPortStatus(5555,ip, function(error, status) {
-      cb((status === 'closed') ? false : true);
-    });
-  }
-  
-  async.filter(this._ips,scan,function(results){
-    results.forEach(function(ip){
-      self.emit('discover', ArdroneDriver, ip);
-    });
+  scanNodes(SEARCH_PORT, function(err, nodes) {
+    nodes.forEach(self.foundDrone.bind(self));
   });
 };
+
+ArDroneScout.prototype.foundDrone = function(ip) {
+  var self = this;
+  var query = this.server.where({ type: 'ardrone', ip: ip });
+  this.server.find(query, function(err, results) {
+    if (results.length > 0) {
+      self.provision(results[0], ArDroneDriver, ip);
+    } else {
+      self.discover(ArDroneDriver, ip);
+    }
+  });
+};
+
 

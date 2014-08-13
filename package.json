@@ -9,9 +9,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "ar-drone": "^0.3.1",
-    "extend": "^1.2.1",
-    "async": "^0.7.0",
-    "portscanner": "^0.2.2"
+    "ar-drone": "^0.3.2",
+    "scan-neighbors": "0.0.3",
+    "throttle-event": "0.0.1",
+    "zetta": "^0.3.0"
   }
 }
