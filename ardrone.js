@@ -8,7 +8,7 @@ var ArDrone = module.exports = function(ip) {
   this.ip = ip;
   this.options = {
     movementSpeed : 0.7,
-    movementTime : 300
+    movementTime : 20
   };
   this._client = null;
 };
@@ -21,6 +21,12 @@ ArDrone.prototype.init = function(config) {
     .name('ArDrone ' + this.ip)
     .when('landed', { allow: ['take-off','blink'] })
     .when('flying', { allow: ['stop','land', 'front', 'back', 'up', 'down', 'left', 'right', 'flip', 'blink', 'clockwise', 'counter-clockwise'] })
+    .when('up', { allow: ['stop','land', 'front', 'back', 'left', 'right', 'blink', 'clockwise', 'counter-clockwise']})
+    .when('down', { allow: ['stop','land', 'front', 'back', 'left', 'right', 'blink', 'clockwise', 'counter-clockwise']})
+    .when('counter-clockwise', { allow: ['stop','land', 'front', 'back', 'left', 'right', 'blink', 'up', 'down']})
+    .when('clockwise', { allow: ['stop','land', 'front', 'back', 'left', 'right', 'blink', 'up', 'down']})
+    .when('left', { allow: ['stop','land', 'front', 'back', 'up', 'down', 'blink', 'clockwise', 'counter-clockwise']})
+    .when('right', { allow: ['stop','land', 'front', 'back', 'up', 'down', 'blink', 'clockwise', 'counter-clockwise']})
     .map('stop', this.stop)
     .map('take-off', this.takeOff)
     .map('land', this.land)
@@ -110,7 +116,8 @@ ArDrone.prototype._timedCall = function(func, cb, time) {
   this.state = func;
   this._client[func](this.options.movementSpeed);
   setTimeout(function() {
-    self._client.stop();
+    self._client[func](0);
+//    self._client.stop();
     self.state = state;
     cb();
   }, (time || this.options.movementTime) );
