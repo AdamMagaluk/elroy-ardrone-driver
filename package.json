@@ -1,6 +1,6 @@
 {
   "name": "zetta-ardrone-driver",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Zetta driver for the Ardrone.",
   "main": "index.js",
   "scripts": {
