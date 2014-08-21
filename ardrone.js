@@ -90,6 +90,7 @@ ArDrone.prototype.flip = function(cb) {
 };
 
 ArDrone.prototype.takeOff = function(cb) {
+  this._client.disableEmergency(); 
   this.state = 'flying';
   this._client.takeoff(function() {
     cb();
