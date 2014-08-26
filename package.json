@@ -1,6 +1,6 @@
 {
   "name": "zetta-ardrone-driver",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Zetta driver for the Ardrone.",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,6 @@
     "ar-drone": "^0.3.2",
     "scan-neighbors": "0.0.3",
     "throttle-event": "0.0.1",
-    "zetta": "^0.3.0"
+    "zetta": "^0.6.0"
   }
 }

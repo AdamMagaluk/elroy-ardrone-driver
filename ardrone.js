@@ -41,8 +41,12 @@ ArDrone.prototype.init = function(config) {
     .map('clockwise', this.clockwise)
     .map('counter-clockwise', this.counterClockwise)
     .monitor('batteryLevel')
-    .monitor('gyroscope')
-    .monitor('accelerometer');
+    .monitor('gyroscope-x')
+    .monitor('gyroscope-y')
+    .monitor('gyroscope-z')
+    .monitor('accelerometer-x')
+    .monitor('accelerometer-y')
+    .monitor('accelerometer-z');
   
   this._client = arDrone.createClient({ ip : this.ip });
   this._client.disableEmergency();
@@ -73,9 +77,16 @@ ArDrone.prototype.onNavData = function(data) {
         z: +val.z.toFixed(3)
       };
     }
+    
+    var gyro = formatXYZ(data.physMeasures.gyroscopes);
+    this['gyroscope-x'] = gyro.x;
+    this['gyroscope-y'] = gyro.y;
+    this['gyroscope-z'] = gyro.z;
 
-    this.gyroscope = formatXYZ(data.physMeasures.gyroscopes);
-    this.accelerometer = formatXYZ(data.physMeasures.accelerometers);
+    var accel = formatXYZ(data.physMeasures.accelerometers);
+    this['accelerometer-x'] = accel.x;
+    this['accelerometer-y'] = accel.y;
+    this['accelerometer-z'] = accel.z;
   }
 };
 
