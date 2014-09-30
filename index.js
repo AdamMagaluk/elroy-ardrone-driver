@@ -1,7 +1,7 @@
 var util = require('util');
-var Scout = require('zetta').Scout;
+var Scout = require('zetta-scout');
 var scanNodes = require('scan-neighbors').scanNodes;
-var ArDroneDriver = require('./ardrone.js');
+var ArDroneDriver = require('./ardrone');
 
 var SEARCH_PORT = 5555;
 
