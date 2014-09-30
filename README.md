@@ -17,11 +17,8 @@ var zetta = require('zetta');
 var ArDrone = require('zetta-ardrone-driver');
 
 zetta()
-  .expose('*')
   .use(ArDrone)
-  .listen(3000, function(err) {
-    console.log('Listening on http://localhost:3000/');
-  });
+  .listen(1337);
 
 ```
 

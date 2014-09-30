@@ -12,6 +12,7 @@
     "ar-drone": "^0.3.2",
     "scan-neighbors": "0.0.3",
     "throttle-event": "0.0.1",
-    "zetta": "^0.6.0"
+    "zetta-device": "^0.3.0",
+    "zetta-scout": "^0.3.0"
   }
 }
