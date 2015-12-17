@@ -1,12 +1,12 @@
 {
   "name": "zetta-ardrone-driver",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Zetta driver for the Ardrone.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Adam Magaluk <AdamMagaluk@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "ar-drone": "^0.3.2",
@@ -14,5 +14,21 @@
     "throttle-event": "0.0.1",
     "zetta-device": "^0.7.0",
     "zetta-scout": "^0.3.0"
-  }
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zettajs/zetta-ardrone-driver.git"
+  },
+  "keywords": [
+    "zetta",
+    "ardrone"
+  ],
+  "bugs": {
+    "url": "https://github.com/zettajs/zetta-ardrone-driver/issues"
+  },
+  "homepage": "https://github.com/zettajs/zetta-ardrone-driver#readme"
 }
